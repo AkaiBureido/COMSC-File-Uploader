@@ -18,6 +18,8 @@ int main(int argc, const char * argv[])
             //NSLog(@"Arg [%i]: %s",iterator, argv[iterator]);
             //}
        
+            //test setup r
+        
         const int testArgc = 1;
         NSString* testArgv[testArgc];
         testArgv[0] = [[NSString alloc] initWithFormat:@"/Users/olegforzane/Desktop/"];
