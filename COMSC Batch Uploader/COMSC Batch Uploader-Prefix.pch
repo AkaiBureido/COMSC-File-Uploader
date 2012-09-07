@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'COMSC Batch Uploader' target in the 'COMSC Batch Uploader' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
