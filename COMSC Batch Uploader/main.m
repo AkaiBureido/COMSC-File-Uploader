@@ -59,7 +59,7 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
-
+    ///If 'acceptableExtensions' is equal to nil then accepting all extensions
 NSArray* scrapeFiles(NSString *path, NSArray *acceptableExtensions) {
     NSMutableArray *filesToUpload = [[NSMutableArray alloc] init];
     
@@ -69,10 +69,8 @@ NSArray* scrapeFiles(NSString *path, NSArray *acceptableExtensions) {
     BOOL itemExists = [fileManager fileExistsAtPath:path isDirectory:&isDirectory];
     
     if (itemExists == true) {
-            //NSLog(@"It exists.");
+            //If it is a directory scrape the contents 1 level deep
         if (isDirectory == true) {
-                //NSLog(@"It is a directory.");
-            
             NSDirectoryEnumerator *dir = [fileManager enumeratorAtPath:path];
             
             NSMutableString *filePath;
@@ -83,8 +81,12 @@ NSArray* scrapeFiles(NSString *path, NSArray *acceptableExtensions) {
                 filePath = [NSString stringWithFormat:@"%@/%@",path, filePath];
                 NSString *fileName = [fileManager displayNameAtPath:filePath];
                 
+                    //Check if it is a directory (no point uploading then)
+                BOOL isSubDirectory;
+                [fileManager fileExistsAtPath:filePath isDirectory:&isSubDirectory];
+                
                     //Eliminating hidden files:
-                if ([fileName characterAtIndex:0] != '$' && [fileName characterAtIndex:0] != '.') {
+                if ([fileName characterAtIndex:0] != '$' && [fileName characterAtIndex:0] != '.' && !isSubDirectory) {
                     if (acceptableExtensions == nil) {
                             //Adding all found files
                         [filesToUpload addObject:filePath];
@@ -97,11 +99,9 @@ NSArray* scrapeFiles(NSString *path, NSArray *acceptableExtensions) {
                 }   
             }
         } else {
-                //NSLog(@"It is a file.");
             [filesToUpload addObject:path];
         }
     } else {
-            //NSLog(@"It does not exist.");
         [NSException raise:@"NoSuchFile" format:@"File or directory not found"];
     }
     
