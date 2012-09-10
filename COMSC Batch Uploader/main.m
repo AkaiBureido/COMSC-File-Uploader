@@ -8,55 +8,64 @@
 
 #import <Foundation/Foundation.h>
 
+#import "COMSC Uploader.h"
+
 NSArray* scrapeFiles(NSString *path, NSArray *acceptableExtensions);
+NSArray* scrapeFilesFromMultipleLocations(NSArray *locations, NSArray *acceptableExtensions);
 
 int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
         
-            //NSLog(@"Arg num: %i", argc);
-            //for (int iterator = 0; iterator < argc ; iterator++) {
-            //NSLog(@"Arg [%i]: %s",iterator, argv[iterator]);
-            //}
-       
-            //test setup r
+            //Determine locations
+        NSArray* locations = [[NSArray alloc] initWithObjects:
+         @"/Users/olegforzane/Clouds/SkyDrive/Developer_Cloud/College/Comsc210_Workspace/Comsc210_Homework/Lab 2b (Rectangle)/Lab 2b (Rectangle)",
+         @"/Users/olegforzane/Clouds/SkyDrive/Developer_Cloud/College/Comsc210_Workspace/Comsc210_Homework/Lab 3a (Road)/Lab 3a (Road)",
+         @"/Users/olegforzane/Clouds/SkyDrive/Developer_Cloud/College/Comsc210_Workspace/Comsc210_Homework/Lab 2b (Rectangle)/Lab 2b (Rectangle)",
+         nil];
         
-        const int testArgc = 3;
-        NSString* testArgv[testArgc];
+        NSArray *acceptableExtensions = [[NSArray alloc] initWithObjects: @"cpp", @"h", nil];
         
-        testArgv[0] = [[NSString alloc] initWithFormat:@"/Users/olegforzane/Clouds/SkyDrive/Developer_Cloud/College/Comsc210_Workspace/Comsc210_Homework/Lab 2b (Rectangle)/Lab 2b (Rectangle)"];
-        testArgv[1] = [[NSString alloc] initWithFormat:@"/Users/olegforzane/Clouds/SkyDrive/Developer_Cloud/College/Comsc210_Workspace/Comsc210_Homework/Lab 3a (Road)/Lab 3a (Road)"];
-        testArgv[2] = [[NSString alloc] initWithFormat:@"/Users/olegforzane/Clouds/SkyDrive/Developer_Cloud/College/Comsc210_Workspace/Comsc210_Homework/Lab 2b (Rectangle)/Lab 2b (Rectangle)"];
-
-        
-        NSArray *acceptableExtensions = [[NSArray alloc] initWithObjects: @"cpp",
-                                                                          @"h", nil];
-        
-        
-        
+            //Gather
         NSMutableArray *filesToUpload = [[NSMutableArray alloc] init];
+        [filesToUpload addObjectsFromArray: scrapeFilesFromMultipleLocations(locations, acceptableExtensions)];
         
-        for ( int iterator = 0; iterator < testArgc; iterator++ ) {
-            NSArray *currentScrapedFiles;
-            @try {
-                 currentScrapedFiles = scrapeFiles(testArgv[iterator], acceptableExtensions);
-            }
-            @catch (NSException *exception) {
-                NSLog(@"%@: %@",[exception name], [exception description]);
-            }
-            NSString* filePath;
-            for (filePath in currentScrapedFiles) {
-                if (![filesToUpload containsObject:filePath]) {
-                    [filesToUpload addObject:filePath];
-                }
-            }
-        }
         
-        NSLog(@"%@", filesToUpload);
-                
+            //Upload
+        COMSCUploader *uploader = [COMSCUploader alloc];
+        
+        [uploader initWithLoginName: @"sampleLogin"
+                       withPassword :@"samplePassword"];
+        
+        [uploader setFilesToUpload:filesToUpload];
+        
+        [uploader start];
+        
     }
     return 0;
+}
+
+NSArray* scrapeFilesFromMultipleLocations(NSArray *locations, NSArray *acceptableExtensions) {
+    NSMutableArray *filesToUpload = [[NSMutableArray alloc] init];
+    
+    NSString *currentLocation;
+    for ( currentLocation in locations ) {
+        NSArray *currentScrapedFiles;
+        @try {
+            currentScrapedFiles = scrapeFiles(currentLocation, acceptableExtensions);
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@: %@",[exception name], [exception description]);
+        }
+        NSString* filePath;
+        for (filePath in currentScrapedFiles) {
+            if (![filesToUpload containsObject:filePath]) {
+                [filesToUpload addObject:filePath];
+            }
+        }
+    }
+    return filesToUpload;
 }
 
     ///If 'acceptableExtensions' is equal to nil then accepting all extensions

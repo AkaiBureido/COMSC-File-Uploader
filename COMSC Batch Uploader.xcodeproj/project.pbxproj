@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D372EF715FDA627009A82FE /* COMSC Uploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D372EF615FDA627009A82FE /* COMSC Uploader.m */; };
 		0D9F87EA15F7DC4F00F5BBE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9F87E915F7DC4F00F5BBE3 /* Foundation.framework */; };
 		0D9F87ED15F7DC4F00F5BBE3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9F87EC15F7DC4F00F5BBE3 /* main.m */; };
 		0D9F87F115F7DC4F00F5BBE3 /* COMSC_Batch_Uploader.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0D9F87F015F7DC4F00F5BBE3 /* COMSC_Batch_Uploader.1 */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D372EF515FDA627009A82FE /* COMSC Uploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "COMSC Uploader.h"; sourceTree = "<group>"; };
+		0D372EF615FDA627009A82FE /* COMSC Uploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "COMSC Uploader.m"; sourceTree = "<group>"; };
 		0D9F87E515F7DC4F00F5BBE3 /* COMSC Batch Uploader */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "COMSC Batch Uploader"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D9F87E915F7DC4F00F5BBE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0D9F87EC15F7DC4F00F5BBE3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -76,6 +79,8 @@
 				0D9F87EC15F7DC4F00F5BBE3 /* main.m */,
 				0D9F87F015F7DC4F00F5BBE3 /* COMSC_Batch_Uploader.1 */,
 				0D9F87EE15F7DC4F00F5BBE3 /* Supporting Files */,
+				0D372EF515FDA627009A82FE /* COMSC Uploader.h */,
+				0D372EF615FDA627009A82FE /* COMSC Uploader.m */,
 			);
 			path = "COMSC Batch Uploader";
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D9F87ED15F7DC4F00F5BBE3 /* main.m in Sources */,
+				0D372EF715FDA627009A82FE /* COMSC Uploader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +236,7 @@
 				0D9F87F615F7DC4F00F5BBE3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
